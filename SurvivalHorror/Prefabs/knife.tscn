@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://g3j0xfhkhusb"]
+
+[ext_resource type="Script" path="res://Scripts/Knife.cs" id="1_v7pfa"]
+[ext_resource type="PackedScene" uid="uid://dptcb2ibjplkv" path="res://Art/Weapons/Knife/Knife.tscn" id="2_v68cq"]
+
+[node name="Knife" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.411564, 0.0774586)
+script = ExtResource("1_v7pfa")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-4.2222e-08, -1.13133e-08, 1, -0.258819, 0.965926, 0, -0.965926, -0.258819, -4.37114e-08, 0, 0, 0)
+
+[node name="Knife" parent="Node3D" instance=ExtResource("2_v68cq")]

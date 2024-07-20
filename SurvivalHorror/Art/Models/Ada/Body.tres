@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://brxmmjh0ryvm6"]
+
+[ext_resource type="Texture2D" uid="uid://bemhcfm7n34nh" path="res://Art/Models/Ada/HolePants.png" id="1_ghxmy"]
+
+[resource]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_ghxmy")
+texture_filter = 0

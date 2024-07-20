@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5jws31v77suq"]
+
+[ext_resource type="Script" path="res://Scripts/WeakPoint.cs" id="1_b3ign"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dlba7"]
+albedo_color = Color(0.826595, 0.465714, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xh5rc"]
+material = SubResource("StandardMaterial3D_dlba7")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yroy3"]
+
+[node name="WeakPoint" type="StaticBody3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_b3ign")
+
+[node name="WeakPoint" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_xh5rc")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_yroy3")

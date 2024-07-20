@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dag5ivqj7jvmj"
+path="res://.godot/imported/body_hit_finisher_52.wav-bfb4be22f8984d7801158d70b8d7f0f9.sample"
+
+[deps]
+
+source_file="res://Art/Audio/SFX/Deadly Kombat Free version/body_hit_finisher_52.wav"
+dest_files=["res://.godot/imported/body_hit_finisher_52.wav-bfb4be22f8984d7801158d70b8d7f0f9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

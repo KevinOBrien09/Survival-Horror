@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bmtcm8yerku2j"
+path="res://.godot/imported/ES_Hard Sole Shoes 26 - SFX Producer.mp3-a553495090d408aadbf2b1daa418243a.mp3str"
+
+[deps]
+
+source_file="res://Art/Audio/SFX/ES_Hard Sole Shoes 26 - SFX Producer.mp3"
+dest_files=["res://.godot/imported/ES_Hard Sole Shoes 26 - SFX Producer.mp3-a553495090d408aadbf2b1daa418243a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=120.0
+beat_count=0
+bar_beats=4

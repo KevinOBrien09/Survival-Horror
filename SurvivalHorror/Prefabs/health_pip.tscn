@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://qu5hy0q5gb7f"]
+
+[node name="HealthPip" type="Control"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 11.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Colour" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 10.0
+offset_bottom = 43.0
+mouse_filter = 2
+color = Color(0.643137, 0, 0, 1)

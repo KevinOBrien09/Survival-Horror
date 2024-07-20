@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdogxfungqbxn"]
+
+[ext_resource type="Script" path="res://Scripts/Hitbox.cs" id="1_5j2pn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1f7gk"]
+size = Vector3(0.25315, 0.0901091, 0.272852)
+
+[node name="Hitbox" type="BoneAttachment3D"]
+transform = Transform3D(1, -1.72053e-11, 6.54836e-11, -1.72315e-11, 1, -1.29201e-08, -6.63931e-11, 1.29201e-08, 1, -6.11558e-05, 1.55119, -0.0483388)
+bone_name = "Head"
+bone_idx = 5
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_5j2pn")
+area = "head"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_1f7gk")

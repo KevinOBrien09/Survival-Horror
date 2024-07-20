@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://fogqe2kan47j"
+path="res://.godot/imported/block_medium_09.wav-766bd80c157a995319d2053d6a65b9cc.sample"
+
+[deps]
+
+source_file="res://Art/Audio/SFX/Deadly Kombat Free version/block_medium_09.wav"
+dest_files=["res://.godot/imported/block_medium_09.wav-766bd80c157a995319d2053d6a65b9cc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,23 @@
+[gd_scene load_steps=7 format=3 uid="uid://blyxq3wo12gon"]
+
+[ext_resource type="Script" path="res://Scripts/InputManager.cs" id="1_f5bcy"]
+[ext_resource type="Script" path="res://Scripts/InteractManager.cs" id="2_i7dt7"]
+[ext_resource type="Script" path="res://Scripts/SmoothLookAt.cs" id="3_4f8yx"]
+[ext_resource type="Script" path="res://Scripts/AudioManager.cs" id="4_jj4xx"]
+[ext_resource type="PackedScene" uid="uid://dech30vyransj" path="res://Prefabs/flat_sound_effect.tscn" id="5_apfhk"]
+[ext_resource type="PackedScene" uid="uid://pgblv2s33d7r" path="res://Prefabs/world_sound_effect.tscn" id="6_sfo46"]
+
+[node name="InputManager" type="Node3D"]
+script = ExtResource("1_f5bcy")
+
+[node name="InteractManager" type="Node3D" parent="."]
+script = ExtResource("2_i7dt7")
+
+[node name="LookAtManager" type="Node3D" parent="."]
+script = ExtResource("3_4f8yx")
+
+[node name="AudioManager" type="Node3D" parent="."]
+script = ExtResource("4_jj4xx")
+flatAudioPrefab = ExtResource("5_apfhk")
+worldAudioPrefab = ExtResource("6_sfo46")
+howManyInstances = 50.0

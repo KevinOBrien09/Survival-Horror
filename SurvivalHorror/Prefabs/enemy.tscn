@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://c6rgvhr3tyn7k"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_aaa20"]
+[ext_resource type="Resource" uid="uid://kwgs0shnc85h" path="res://Art/Audio/HitConnected.tres" id="2_1e8xx"]
+[ext_resource type="AudioStream" uid="uid://dt010w2d0yes4" path="res://Art/Audio/SFX/blade_hit_08.mp3" id="3_vwh4o"]
+[ext_resource type="Script" path="res://Scripts/SoundData.cs" id="4_6fl35"]
+[ext_resource type="Script" path="res://Scripts/Health.cs" id="5_imhod"]
+[ext_resource type="PackedScene" uid="uid://c5jws31v77suq" path="res://Prefabs/weak_point.tscn" id="6_3oqdv"]
+
+[sub_resource type="Resource" id="Resource_d38af"]
+script = ExtResource("4_6fl35")
+isWorldSource = false
+file = ExtResource("3_vwh4o")
+pitchRange = Vector2(0.9, 1.1)
+volume = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2tpfm"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wj7el"]
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("agent", "health")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00476, 1.51074, 3.87964)
+collision_layer = 2
+collision_mask = 3
+floor_constant_speed = true
+script = ExtResource("1_aaa20")
+hitConnected = ExtResource("2_1e8xx")
+gore = SubResource("Resource_d38af")
+agent = NodePath("")
+speed = 1.5
+health = NodePath("")
+
+[node name="Health" type="Node3D" parent="."]
+script = ExtResource("5_imhod")
+maxHealth = 150.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2tpfm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_wj7el")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+navigation_layers = 7
+avoidance_enabled = true
+use_3d_avoidance = true
+
+[node name="WeakPoint" parent="." node_paths=PackedStringArray("owner") instance=ExtResource("6_3oqdv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.199271)
+owner = NodePath("")
+
+[connection signal="OnDie" from="Health" to="." method="Die"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="VelocityComputed"]

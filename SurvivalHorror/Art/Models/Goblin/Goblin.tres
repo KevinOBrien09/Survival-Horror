@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ds2i4dv4f8s4d"]
+
+[ext_resource type="Texture2D" uid="uid://daw0jwgn5vl5y" path="res://Art/Models/Goblin/GoblinTex.png" id="1_emgh0"]
+[ext_resource type="Material" uid="uid://7s5v8q8vpasl" path="res://Shaders/OutlineNextPass.tres" id="2_ydu1a"]
+
+[resource]
+next_pass = ExtResource("2_ydu1a")
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_emgh0")
+texture_filter = 0

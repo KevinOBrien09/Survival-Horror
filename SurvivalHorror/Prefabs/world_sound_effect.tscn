@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://pgblv2s33d7r"]
+
+[ext_resource type="Script" path="res://Scripts/WorldSoundEffect.cs" id="1_7xjhd"]
+
+[node name="WorldSoundEffect" type="AudioStreamPlayer3D"]
+max_distance = 10.0
+script = ExtResource("1_7xjhd")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdk56dxxv1g3o"]
+
+[ext_resource type="Script" path="res://Scripts/Trail.cs" id="1_vn32d"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+script = ExtResource("1_vn32d")
+maxLength = 20
+
+[node name="Camera2D" type="Camera2D" parent="."]

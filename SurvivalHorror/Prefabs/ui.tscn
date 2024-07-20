@@ -1,0 +1,424 @@
+[gd_scene load_steps=15 format=3 uid="uid://dfxufqurfgj12"]
+
+[ext_resource type="Texture2D" uid="uid://byuxu2kvc55y3" path="res://Art/Crosshairs/crosshair009.png" id="1_5fhrt"]
+[ext_resource type="Script" path="res://Scripts/CursorManager.cs" id="2_ne5c1"]
+[ext_resource type="Texture2D" uid="uid://tm3libebg0yq" path="res://Art/UI/Bar1.png" id="3_u035s"]
+[ext_resource type="Texture2D" uid="uid://cmhm5t1ylo4pr" path="res://Art/UI/circleFrame.png" id="5_2dlba"]
+[ext_resource type="Texture2D" uid="uid://te7pdn6suiif" path="res://Art/UI/BarFillSolid.png" id="5_a62ef"]
+[ext_resource type="Texture2D" uid="uid://cjne5sb8abwmt" path="res://Art/UI/Circle.png" id="6_dq3md"]
+[ext_resource type="Texture2D" uid="uid://uhmj1wq046t0" path="res://Art/UI/WaterBG.png" id="6_t07ac"]
+[ext_resource type="Texture2D" uid="uid://bo6e615owxmef" path="res://Art/UI/face.png" id="7_ddebp"]
+[ext_resource type="Texture2D" uid="uid://cw8wupscrfcw6" path="res://Art/UI/ParchmentBG.png" id="7_dxu1m"]
+[ext_resource type="Texture2D" uid="uid://c6oe6d450oatr" path="res://Art/UI/GrayscaleFrame.png" id="8_8rlvl"]
+[ext_resource type="Texture2D" uid="uid://cs12nrc8gq10s" path="res://Art/UI/Health_Brush_3_1.png" id="11_ab21e"]
+[ext_resource type="Script" path="res://Scripts/ScreenBlood.cs" id="12_4wtmq"]
+[ext_resource type="Script" path="res://Scripts/FPSCap.cs" id="13_x5l6c"]
+[ext_resource type="Script" path="res://Scripts/BlackFade.cs" id="14_804ip"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BottomLeft" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -376.0
+offset_top = -48.0
+offset_right = -336.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="HPBar" type="TextureRect" parent="Control/BottomLeft"]
+visible = false
+self_modulate = Color(0.273873, 0.273873, 0.273873, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 338.0
+offset_top = -64.0
+offset_right = 588.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(-1, 1)
+mouse_filter = 2
+texture = ExtResource("3_u035s")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/BottomLeft/HPBar"]
+self_modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_right = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_a62ef")
+expand_mode = 1
+
+[node name="Fill" type="TextureProgressBar" parent="Control/BottomLeft/HPBar/TextureRect"]
+modulate = Color(3.1285e-07, 0.36571, 0.13075, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_t07ac")
+
+[node name="StaminaBar" type="TextureRect" parent="Control/BottomLeft"]
+self_modulate = Color(0.27451, 0.27451, 0.27451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 348.0
+offset_top = -24.0
+offset_right = 598.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(-1, 1)
+mouse_filter = 2
+texture = ExtResource("3_u035s")
+expand_mode = 1
+
+[node name="Black" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_right = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_a62ef")
+expand_mode = 1
+
+[node name="Fill" type="TextureProgressBar" parent="Control/BottomLeft/StaminaBar/Black"]
+modulate = Color(0.883473, 0.499505, 0, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+step = 0.1
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_t07ac")
+
+[node name="StaminaNib2" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 6.0
+offset_right = 43.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib3" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 60.0
+offset_top = 6.0
+offset_right = 63.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib4" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 79.0
+offset_top = 6.0
+offset_right = 82.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib5" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 99.0
+offset_top = 6.0
+offset_right = 102.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib6" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 119.0
+offset_top = 6.0
+offset_right = 122.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib8" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 158.0
+offset_top = 7.0
+offset_right = 161.0
+offset_bottom = 25.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib9" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 177.0
+offset_top = 4.0
+offset_right = 180.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib7" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 138.0
+offset_top = 6.0
+offset_right = 141.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="StaminaNib10" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+self_modulate = Color(0.190762, 0.190762, 0.190762, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 197.0
+offset_top = 4.0
+offset_right = 200.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("7_dxu1m")
+expand_mode = 1
+
+[node name="RedFlash" type="TextureRect" parent="Control/BottomLeft/StaminaBar"]
+modulate = Color(0.643137, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_u035s")
+expand_mode = 1
+
+[node name="CharFrame" type="TextureRect" parent="Control/BottomLeft"]
+visible = false
+self_modulate = Color(0.27451, 0.27451, 0.27451, 1)
+layout_mode = 0
+offset_left = 1.0
+offset_top = -78.0
+offset_right = 119.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("5_2dlba")
+
+[node name="Mask" type="TextureRect" parent="Control/BottomLeft/CharFrame"]
+self_modulate = Color(0.643137, 0, 0, 1)
+show_behind_parent = true
+clip_children = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -57.0
+offset_right = 57.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_dq3md")
+expand_mode = 1
+
+[node name="Char" type="TextureRect" parent="Control/BottomLeft/CharFrame/Mask"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.532
+anchor_right = 0.5
+anchor_bottom = 0.532
+offset_left = -54.5
+offset_top = -52.648
+offset_right = 48.5
+offset_bottom = 50.352
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_ddebp")
+expand_mode = 2
+
+[node name="Cursor" type="TextureRect" parent="Control"]
+modulate = Color(0.643137, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0004
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+mouse_filter = 2
+texture = ExtResource("1_5fhrt")
+script = ExtResource("2_ne5c1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control" node_paths=PackedStringArray("textLabel")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -127.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = 49.0
+grow_horizontal = 0
+bbcode_enabled = true
+text = "[right]999FPS"
+script = ExtResource("13_x5l6c")
+textLabel = NodePath(".")
+
+[node name="ScreenBlood" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_ab21e")
+expand_mode = 1
+script = ExtResource("12_4wtmq")
+
+[node name="Transitions" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/Transitions" node_paths=PackedStringArray("b_top", "b_bot")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("14_804ip")
+b_top = NodePath("../Blinds/Top")
+b_bot = NodePath("../Blinds/Bottom")
+
+[node name="Blinds" type="Control" parent="Control/Transitions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Top" type="ColorRect" parent="Control/Transitions/Blinds"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 288.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Bottom" type="ColorRect" parent="Control/Transitions/Blinds"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Frame" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_8rlvl")
+expand_mode = 1

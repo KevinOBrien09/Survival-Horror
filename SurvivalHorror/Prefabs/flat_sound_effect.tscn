@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dech30vyransj"]
+
+[ext_resource type="Script" path="res://Scripts/FlatSoundEffect.cs" id="1_8mhgc"]
+
+[node name="FlatSoundEffect" type="AudioStreamPlayer"]
+script = ExtResource("1_8mhgc")

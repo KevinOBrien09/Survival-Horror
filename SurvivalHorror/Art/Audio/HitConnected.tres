@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundData" load_steps=3 format=3 uid="uid://kwgs0shnc85h"]
+
+[ext_resource type="AudioStream" uid="uid://dolxt5o4y6ews" path="res://Art/Audio/SFX/click1.mp3" id="1_d8h2f"]
+[ext_resource type="Script" path="res://Scripts/SoundData.cs" id="2_d7d0v"]
+
+[resource]
+script = ExtResource("2_d7d0v")
+isWorldSource = false
+file = ExtResource("1_d8h2f")
+pitchRange = Vector2(0.9, 1.1)
+volume = 1.0

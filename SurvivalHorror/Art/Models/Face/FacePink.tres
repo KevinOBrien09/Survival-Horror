@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ifcs5y34ep5f"]
+
+[ext_resource type="Texture2D" uid="uid://cwwarpx11g4if" path="res://Art/Models/Face/FacePink.png" id="1_of3q6"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.7
+alpha_antialiasing_mode = 0
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_of3q6")
