@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bgkm42pb1ymho"]
+
+[ext_resource type="Texture2D" uid="uid://con0bqiw52giv" path="res://Art/Models/Runner/body.png" id="1_3dpel"]
+
+[resource]
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_3dpel")

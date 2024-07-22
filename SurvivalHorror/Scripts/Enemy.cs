@@ -5,7 +5,7 @@ using Peaky.Coroutines;
 using System.Collections;
 public partial class Enemy : CharacterBody3D
 {
-    [Export] public SoundData hitConnected;
+   
     [Export] public SoundData gore;
     [Export] SoundData footstep;
     [Export] public NavigationAgent3D agent;
@@ -19,14 +19,15 @@ public partial class Enemy : CharacterBody3D
 
     public virtual void Hit(float dmg,Hitbox hitbox = null)
     {
-        AudioManager.inst.Play(hitConnected,AudioType.FLAT);
+        Hitmarker.inst.HitTween(false);
         health.Damage(dmg);
         AudioManager.inst.Play(gore,AudioType.WORLD,GlobalPosition);
     }
 
     public virtual void WeakPointHit(float dmg,WeakPoint weakPoint){
-        
-        Hit(dmg*2); 
+        Hitmarker.inst.HitTween(true);
+        health.Damage(dmg*3);
+        AudioManager.inst.Play(gore,AudioType.WORLD,GlobalPosition);
         
     }
 

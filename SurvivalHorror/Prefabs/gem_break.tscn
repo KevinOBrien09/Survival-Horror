@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://br33eb6q55caq"]
+
+[ext_resource type="PackedScene" uid="uid://bx3baihs7vwwh" path="res://Prefabs/gibs.tscn" id="1_pg84h"]
+[ext_resource type="Texture2D" uid="uid://ddx10v6gfxfmu" path="res://Art/Models/Zombie/pink.png" id="2_3lhsa"]
+
+[sub_resource type="Curve" id="Curve_6t2ws"]
+_data = [Vector2(0, 0.736004), 0.0, 0.0, 0, 0, Vector2(1, 0.0367728), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ubcff"]
+curve = SubResource("Curve_6t2ws")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2eur7"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ubcff")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kn6ol"]
+albedo_texture = ExtResource("2_3lhsa")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_02roq"]
+material = SubResource("StandardMaterial3D_kn6ol")
+top_radius = 0.05
+bottom_radius = 0.0
+height = 0.5
+
+[node name="GemBreak" instance=ExtResource("1_pg84h")]
+amount = 9
+process_material = SubResource("ParticleProcessMaterial_2eur7")
+draw_pass_1 = SubResource("CylinderMesh_02roq")

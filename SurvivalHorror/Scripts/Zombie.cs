@@ -91,7 +91,7 @@ public partial class Zombie : Enemy
             return;
         }
         HandleAnims();
-        //YClampLookAt(Player.inst.GlobalPosition);
+       
         if(canMove)
         {
             inAttack = dist <= attackDist && !inHit && canMove;
@@ -109,6 +109,7 @@ public partial class Zombie : Enemy
             }
             if(inAttack)
             {
+              
                 if(currentState != State.ATTACK1 && currentState != State.ATTACK2)
                 {
                     canMove = false;
@@ -146,6 +147,7 @@ public partial class Zombie : Enemy
             }
             else if(inAttack)
             {
+                YClampLookAt(Player.inst.GlobalPosition);
                 if(returnToIdle <= Time.GetTicksMsec() && !dead)
                 {
                     leftSwip = !leftSwip;
@@ -178,6 +180,7 @@ public partial class Zombie : Enemy
 
     public override void Hit(float dmg, Hitbox hitbox = null)
     {
+     
         base.Hit(dmg, hitbox);
     
     }
@@ -221,11 +224,14 @@ public partial class Zombie : Enemy
         weakPoint.Deactivate();
         if(dead)
         {return;}
-
+       var ps = weakPoint.GetParent().GetChild(1) as GpuParticles3D;
+       ps.Emitting = true;
        
         inHit = true;
         tree.Active = false;
-        Hit(4);
+        health.Damage(4);
+        AudioManager.inst.Play(gore,AudioType.WORLD,GlobalPosition);
+        Hitmarker.inst.HitTween(true);
         if(!dead){
             foreach (var item in dict)
             {       

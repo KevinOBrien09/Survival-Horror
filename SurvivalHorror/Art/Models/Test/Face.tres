@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cp8u1x6tphcl4"]
+
+[ext_resource type="Texture2D" uid="uid://d2q8mmui0ovef" path="res://Art/Models/Ada/AdaFace2.png" id="1_6oyij"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.7
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("1_6oyij")
+texture_filter = 0

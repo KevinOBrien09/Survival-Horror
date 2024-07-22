@@ -19,6 +19,10 @@ public partial class WorldSoundEffect : AudioStreamPlayer3D
     }
 
     public void SetAndPlay(SoundData soundData){
+        if(soundData == null){
+            GD.PrintErr("NO SOUND DATA!!");
+            return;
+        }
         PitchScale = soundData.GetRandomPitch();
         Stream = soundData.file;
         VolumeDb = soundData.volume;

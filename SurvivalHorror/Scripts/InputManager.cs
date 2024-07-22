@@ -3,7 +3,7 @@ using System;
 
 public partial class InputManager : Node3D
 {
-    [Export] float defaultpadMouseSens = 10;
+
     public static InputManager inst;
 	public Vector2 cameraInput;
 	public Vector2 move;
@@ -11,7 +11,8 @@ public partial class InputManager : Node3D
 	public float scrollWheel;
     public enum ControlType{MKB,PAD}
     public ControlType currentController;
-	float padMouseSens;
+	float cursorPadSens;
+	int controlTypeInt;
     public override void _Ready(){
         if(inst != null){
             GD.PrintErr("TWO INPUT MANAGERS!!!");
@@ -19,22 +20,22 @@ public partial class InputManager : Node3D
         inst = this;
 
     }
-
-	public void ChangePadMouseSens(float newSens){
-		padMouseSens = newSens;
-	}
-
-	public void ResetPadMouseSens(){
-		padMouseSens = defaultpadMouseSens;
-	}
 	public override void _Input(InputEvent @event)
 	{
-      
-		
-		if(@event is InputEventMouseMotion mouseMotion)
-		{cameraInput = mouseMotion.Relative;}
+		if (@event is InputEventJoypadButton || @event is InputEventJoypadMotion)
+		{
+			currentController = ControlType.PAD;
+			controlTypeInt = (int)currentController;
+		}
 		else
-		{cameraInput = Vector2.Zero;}
+		{
+			currentController = ControlType.MKB;
+			controlTypeInt = (int)currentController;
+			if(@event is InputEventMouseMotion mouseMotion)
+			{cameraInput = mouseMotion.Relative;}
+			else
+			{cameraInput = Vector2.Zero;}
+		}
 		
 	}
 
@@ -64,17 +65,22 @@ public partial class InputManager : Node3D
 		direction.Y = Input.GetActionStrength("JoystickDown") - Input.GetActionStrength("JoystickUp");
         if (Mathf.Abs(direction.X) == 1 && Mathf.Abs(direction.Y) == 1)
         {direction = direction.Normalized();}
-        movement = padMouseSens * direction ;
+        movement = cursorPadSens * direction ;
         GetViewport().WarpMouse(GetViewport().GetMousePosition() + movement);
     }
 
 
 	public override void _Process(double delta)
 	{
+		if(currentController == ControlType.PAD){
+			float hori = Input.GetAxis("JoystickLeft" , "JoystickRight");
+			float vert = Input.GetAxis("JoystickUp" , "JoystickDown");
+			cameraInput = new Vector2(hori,vert);
+		}
        
 		GetInput();
         WarpMouse();
-        
+      
         
 		if(Input.IsActionJustReleased("MouseWheelDown"))
 		{
@@ -88,6 +94,10 @@ public partial class InputManager : Node3D
 		{
 			scrollWheel = 0;
 		}
+	}
+
+	public float PadSensChange(float mouseSens){
+		return mouseSens*100;
 	}
 
 

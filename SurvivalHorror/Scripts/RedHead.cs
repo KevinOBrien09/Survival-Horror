@@ -98,7 +98,7 @@ public partial class RedHead : Enemy
 
     public override void Hit(float dmg,Hitbox hitbox = null)
     {
-       // AudioManager.inst.Play(hitConnected,AudioType.FLAT);
+        Hitmarker.inst.HitTween(false);
         health.Damage(dmg);
         AudioManager.inst.Play(gore,AudioType.WORLD,GlobalPosition);
     }
@@ -106,7 +106,7 @@ public partial class RedHead : Enemy
     public override void WeakPointHit(float dmg,WeakPoint weakPoint)
     {
         GD.Print("WP HIT");
-        AudioManager.inst.Play(hitConnected,AudioType.FLAT);
+        Hitmarker.inst.HitTween(true);
         health.Damage(dmg);
         AudioManager.inst.Play(gore,AudioType.WORLD,GlobalPosition);
     }

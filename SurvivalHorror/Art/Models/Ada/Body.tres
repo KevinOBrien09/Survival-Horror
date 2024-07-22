@@ -8,7 +8,5 @@ alpha_hash_scale = 1.0
 alpha_antialiasing_mode = 0
 cull_mode = 2
 shading_mode = 0
-diffuse_mode = 3
-specular_mode = 1
 albedo_texture = ExtResource("1_ghxmy")
 texture_filter = 0

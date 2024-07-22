@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dhfc6f7c5ra7f"]
+[gd_scene load_steps=22 format=3 uid="uid://dhfc6f7c5ra7f"]
 
 [ext_resource type="PackedScene" uid="uid://dhf4knnk1dsth" path="res://Prefabs/player.tscn" id="1_nnj2n"]
+[ext_resource type="PackedScene" uid="uid://clmffnjle5jp4" path="res://Prefabs/runner.tscn" id="2_3uei0"]
 [ext_resource type="Material" uid="uid://jbobf7jh8l6s" path="res://Shaders/OutlineMat.tres" id="2_d3y5l"]
 [ext_resource type="PackedScene" uid="uid://lgbw0dm7xsmu" path="res://Prefabs/Zombie.tscn" id="3_22lxg"]
 [ext_resource type="Script" path="res://Scripts/Clickable.cs" id="3_dn5bn"]
@@ -69,6 +70,9 @@ uv1_triplanar = true
 texture_filter = 0
 
 [node name="Node3D" type="Node3D"]
+
+[node name="Runner" parent="." instance=ExtResource("2_3uei0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.278, 0.5, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_nnj2n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.70607, 0.49231, -23.9306)

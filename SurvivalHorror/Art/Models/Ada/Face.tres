@@ -7,6 +7,4 @@ transparency = 2
 alpha_scissor_threshold = 0.1
 alpha_antialiasing_mode = 0
 shading_mode = 0
-diffuse_mode = 3
-specular_mode = 1
 albedo_texture = ExtResource("1_8w5kj")

@@ -8,24 +8,25 @@ public partial class WeaponManager : Node3D
     public static WeaponManager inst;
     [Export] Breathing breathing;
     [Export] Weapon[] weapons;
-    [Export] Camera3D camera3D;
+
     [Export] public Node3D recoil;
     [Export] Camera3D firstPerson,thirdPerson;
     [Export] ThirdPersonCamera thirdPersonCamera;
     public Weapon currentWeapon;
-    [Export] float ogFOV,zoomFOV;
-    [Export] HeadBob test;
+    [Export] float zoomFOV;
     [Export] Node3D cameraAim;
     [Export] Node3D model;
     [Export] AnimationTree animationTree;
     [Export] SoundData[] aimSFX;
     public bool weaponIsRaised;
-    [Export] float normalSens,aimSens;
+    [Export] float aimSens;
     bool inTrans;
+    float ogFOV;
+    Vector2 cameraInput;
     public override void _Ready()
     {
         inst = this;
-        ogFOV = camera3D.Fov;
+        ogFOV = firstPerson.Fov;
         foreach (var item in weapons)
         {
             item.Disable();
@@ -34,7 +35,7 @@ public partial class WeaponManager : Node3D
         firstPerson.Current = false;
         Visible = false;
         SetWeapon(weapons[0]);
-        SetSensitivity(normalSens);
+        SetSensitivity(aimSens);
         cameraAim.Set("firstPerson",false);
         Coro.Run(q(),this);
         IEnumerator q()
@@ -52,13 +53,28 @@ public partial class WeaponManager : Node3D
 
     public void SetSensitivity(float sens){
         var s = sens/1000;
-        cameraAim.Set("sens",s);
+        if(InputManager.inst.currentController == InputManager.ControlType.PAD)
+        {
+           
+            cameraAim.Set("sens",s*50);
+        }
+        else
+        {
+           
+            cameraAim.Set("sens",s);
+        }
+        
+ 
     }
+
+  
 
     public override void _Process(double delta)
     {
+       
         if(inTrans)
         {return;}  
+        SetSensitivity(aimSens);
         if(InputManager.inst.raiseWeapon && !weaponIsRaised)
         {
             inTrans = true;
@@ -72,16 +88,13 @@ public partial class WeaponManager : Node3D
                     currentWeapon.Rise();   
                     breathing.SetProcess(true);
                     Tween c = CreateTween();
-                    SetSensitivity(aimSens);
+                    
                     cameraAim.Rotation = new Vector3(Player.inst.thirdPersonCamera.Rotation.X,0,0);
                     CursorManager.inst.Visible = true;
                     Visible = true;
                     c.Finished += ()=>{   };
-                    c.TweenProperty(camera3D,"fov",zoomFOV,.1f);
+                    c.TweenProperty(firstPerson,"fov",zoomFOV,.1f);
                     Player.inst.GlobalRotationDegrees= new Vector3(0,Player.inst. thirdPersonCamera.GlobalRotationDegrees.Y+180,0);
-                    // var cr = thirdPersonCamera.target.Rotation;
-                    // cr.X = Mathf.Clamp(cr.X,Mathf.DegToRad(-50),Mathf.DegToRad(50));
-                    // cameraAim.Rotation = new Vector3(cr.X,0,0);
                     cameraAim.Set("firstPerson",true);
                     thirdPerson.Current = false;
                     firstPerson.Current = true;
@@ -112,10 +125,10 @@ public partial class WeaponManager : Node3D
                     CursorManager.inst.Visible = false;
                     cameraAim.Set("firstPerson",false);
                     c.Finished+=()=>{};
-                    c.TweenProperty(camera3D,"fov",ogFOV,.1f);
+                    c.TweenProperty(firstPerson,"fov",ogFOV,.1f);
                     //var cr = thirdPersonCamera.target.Rotation;
                     thirdPersonCamera.target.Rotation = Vector3.Zero;
-                    SetSensitivity(normalSens);
+            
                     breathing.SetProcess  (false);
                     breathing.Kill();
                     breathing.RotationDegrees = Vector3.Zero;

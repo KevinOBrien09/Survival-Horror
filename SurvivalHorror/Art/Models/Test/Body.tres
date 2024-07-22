@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bqrlsw5t6r80k"]
+
+[ext_resource type="Texture2D" uid="uid://dag74ynn7o20l" path="res://Art/Models/Ada/AdaBody12.png" id="1_shlub"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("1_shlub")
+texture_filter = 0

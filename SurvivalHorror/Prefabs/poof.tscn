@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dl7cc2sbotyxf"]
+
+[sub_resource type="Curve" id="Curve_yml8j"]
+_data = [Vector2(0.0197183, 0.0653129), 0.0, 2.88719, 0, 0, Vector2(0.298592, 0.98573), 0.0, 0.0, 0, 0, Vector2(0.96338, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_utq42"]
+curve = SubResource("Curve_yml8j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xapno"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(1, -1, 0)
+spread = 90.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, 5, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_utq42")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_heap4"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_xkc0i"]
+material = SubResource("StandardMaterial3D_heap4")
+radial_segments = 6
+rings = 2
+
+[node name="Poof" type="GPUParticles3D"]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_xapno")
+draw_pass_1 = SubResource("SphereMesh_xkc0i")
