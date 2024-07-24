@@ -1,15 +1,42 @@
-[gd_scene load_steps=40 format=3 uid="uid://clmffnjle5jp4"]
+[gd_scene load_steps=59 format=3 uid="uid://clmffnjle5jp4"]
 
-[ext_resource type="Animation" uid="uid://c3neoaebfa0jx" path="res://Art/Models/Spider/attack.res" id="1_6p40n"]
+[ext_resource type="Animation" uid="uid://c3neoaebfa0jx" path="res://Art/Models/Runner/attack.res" id="1_6p40n"]
 [ext_resource type="Script" path="res://Scripts/Runner.cs" id="1_epr6f"]
-[ext_resource type="Material" uid="uid://dmt2gybg5j7wv" path="res://Art/Models/Spider/Spider.tres" id="1_g88nx"]
+[ext_resource type="Material" uid="uid://dmt2gybg5j7wv" path="res://Art/Models/Runner/Runner.tres" id="1_g88nx"]
 [ext_resource type="AudioStream" uid="uid://dt010w2d0yes4" path="res://Art/Audio/SFX/blade_hit_08.mp3" id="2_4ctvb"]
+[ext_resource type="AudioStream" uid="uid://dj2w4h128cjys" path="res://Art/Audio/SFX/GoreExplode.mp3" id="2_ddibq"]
 [ext_resource type="AudioStream" uid="uid://bi4qae33dao6k" path="res://Art/Audio/SFX/footstep2.mp3" id="3_i3xsn"]
 [ext_resource type="Script" path="res://Scripts/SoundData.cs" id="4_4xh6j"]
-[ext_resource type="Texture2D" uid="uid://dod88qelouxav" path="res://Art/Models/Spider/eye_EYE.png" id="4_52tks"]
+[ext_resource type="Texture2D" uid="uid://dod88qelouxav" path="res://Art/Models/Runner/eye_EYE.png" id="4_52tks"]
+[ext_resource type="AudioStream" uid="uid://bs7u2ilq7w0ex" path="res://Art/Audio/SFX/explode.mp3" id="4_pxslf"]
+[ext_resource type="AudioStream" uid="uid://c881hts0ri6ar" path="res://Art/Audio/SFX/spikes.mp3" id="5_ia1k4"]
+[ext_resource type="PackedScene" uid="uid://bx3baihs7vwwh" path="res://Prefabs/gibs.tscn" id="5_p42kl"]
 [ext_resource type="PackedScene" uid="uid://bdogxfungqbxn" path="res://Prefabs/hitbox.tscn" id="5_qiw10"]
 [ext_resource type="Script" path="res://Scripts/Health.cs" id="6_3fol7"]
 [ext_resource type="Script" path="res://Scripts/WeakPoint.cs" id="6_cgkvq"]
+[ext_resource type="Texture2D" uid="uid://ddx10v6gfxfmu" path="res://Art/Models/Zombie/pink.png" id="6_k8uqn"]
+[ext_resource type="AudioStream" uid="uid://biiy8cu0e1uby" path="res://Art/Audio/SFX/panting.mp3" id="15_35wli"]
+
+[sub_resource type="Resource" id="Resource_pvm13"]
+script = ExtResource("4_4xh6j")
+isWorldSource = false
+file = ExtResource("2_ddibq")
+pitchRange = Vector2(0.9, 1.1)
+volume = 1.0
+
+[sub_resource type="Resource" id="Resource_fg7xp"]
+script = ExtResource("4_4xh6j")
+isWorldSource = false
+file = ExtResource("4_pxslf")
+pitchRange = Vector2(0.9, 1.1)
+volume = 1.0
+
+[sub_resource type="Resource" id="Resource_isceu"]
+script = ExtResource("4_4xh6j")
+isWorldSource = false
+file = ExtResource("5_ia1k4")
+pitchRange = Vector2(0.9, 1.1)
+volume = 1.0
 
 [sub_resource type="Resource" id="Resource_uk0wh"]
 script = ExtResource("4_4xh6j")
@@ -24,6 +51,48 @@ isWorldSource = false
 file = ExtResource("3_i3xsn")
 pitchRange = Vector2(5, 5.5)
 volume = 1.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6ky25"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxelu"]
+albedo_color = Color(0.475844, 0.085646, 0.0239259, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qmduq"]
+material = SubResource("StandardMaterial3D_mxelu")
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="Curve" id="Curve_hr4m7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24507, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_f2obg"]
+curve = SubResource("Curve_hr4m7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u43mg"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_f2obg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4el6b"]
+albedo_texture = ExtResource("6_k8uqn")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nxxud"]
+material = SubResource("StandardMaterial3D_4el6b")
+top_radius = 0.0
+bottom_radius = 0.05
+height = 0.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fpcjs"]
 radius = 0.25
@@ -157,8 +226,16 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ycdn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_662mf"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1lh3"]
 resource_name = "Material.001"
+next_pass = SubResource("StandardMaterial3D_662mf")
 cull_mode = 2
 shading_mode = 0
 albedo_texture = ExtResource("4_52tks")
@@ -178,7 +255,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_2nrh1"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_3u0p2"]
 resource_name = "eye_Icosphere"
 _surfaces = [{
 "aabb": AABB(-1.04389, -0.994276, -1, 2.08778, 1.98855, 2),
@@ -187,7 +264,7 @@ _surfaces = [{
 "index_count": 144,
 "index_data": PackedByteArray(46, 0, 3, 0, 69, 0, 47, 0, 61, 0, 4, 0, 0, 0, 111, 0, 79, 0, 60, 0, 102, 0, 92, 0, 51, 0, 107, 0, 93, 0, 2, 0, 125, 0, 113, 0, 86, 0, 90, 0, 123, 0, 12, 0, 133, 0, 33, 0, 18, 0, 140, 0, 8, 0, 21, 0, 139, 0, 16, 0, 27, 0, 40, 0, 25, 0, 36, 0, 138, 0, 30, 0, 136, 0, 43, 0, 29, 0, 39, 0, 142, 0, 22, 0, 143, 0, 41, 0, 131, 0, 141, 0, 130, 0, 9, 0, 132, 0, 42, 0, 135, 0, 134, 0, 137, 0, 34, 0, 87, 0, 37, 0, 31, 0, 88, 0, 32, 0, 122, 0, 126, 0, 26, 0, 24, 0, 124, 0, 23, 0, 112, 0, 118, 0, 20, 0, 15, 0, 106, 0, 17, 0, 7, 0, 108, 0, 10, 0, 94, 0, 100, 0, 13, 0, 35, 0, 101, 0, 38, 0, 91, 0, 121, 0, 28, 0, 129, 0, 120, 0, 128, 0, 83, 0, 81, 0, 127, 0, 5, 0, 109, 0, 19, 0, 117, 0, 110, 0, 119, 0, 77, 0, 76, 0, 115, 0, 70, 0, 114, 0, 14, 0, 103, 0, 116, 0, 104, 0, 71, 0, 73, 0, 105, 0, 49, 0, 96, 0, 11, 0, 98, 0, 95, 0, 97, 0, 52, 0, 55, 0, 99, 0, 57, 0, 59, 0, 89, 0, 85, 0, 62, 0, 82, 0, 6, 0, 1, 0, 80, 0, 68, 0, 66, 0, 78, 0, 72, 0, 67, 0, 74, 0, 44, 0, 45, 0, 75, 0, 50, 0, 58, 0, 84, 0, 65, 0, 48, 0, 53, 0, 63, 0, 64, 0, 54, 0, 56, 0),
 "lods": [0.406825, PackedByteArray(175, 0, 179, 0, 181, 0, 179, 0, 175, 0, 177, 0, 181, 0, 184, 0, 175, 0, 184, 0, 189, 0, 175, 0, 176, 0, 189, 0, 97, 0, 189, 0, 167, 0, 97, 0, 55, 0, 188, 0, 177, 0, 177, 0, 188, 0, 186, 0, 188, 0, 33, 0, 186, 0, 188, 0, 12, 0, 33, 0, 12, 0, 195, 0, 33, 0, 195, 0, 196, 0, 33, 0, 195, 0, 173, 0, 196, 0, 173, 0, 195, 0, 7, 0, 190, 0, 173, 0, 7, 0, 103, 0, 114, 0, 7, 0, 114, 0, 103, 0, 184, 0, 172, 0, 196, 0, 30, 0, 187, 0, 172, 0, 30, 0, 196, 0, 174, 0, 170, 0, 170, 0, 174, 0, 25, 0, 19, 0, 174, 0, 190, 0, 19, 0, 190, 0, 76, 0, 76, 0, 191, 0, 184, 0, 183, 0, 76, 0, 184, 0, 61, 0, 194, 0, 183, 0, 187, 0, 171, 0, 192, 0, 178, 0, 187, 0, 192, 0, 178, 0, 192, 0, 180, 0, 182, 0, 168, 0, 185, 0, 182, 0, 169, 0, 168, 0, 193, 0, 169, 0, 182, 0), 0.828812, PackedByteArray(158, 0, 163, 0, 161, 0, 55, 0, 163, 0, 158, 0, 163, 0, 165, 0, 161, 0, 155, 0, 144, 0, 163, 0, 163, 0, 12, 0, 165, 0, 12, 0, 164, 0, 165, 0, 164, 0, 153, 0, 165, 0, 153, 0, 164, 0, 145, 0, 147, 0, 153, 0, 145, 0, 162, 0, 165, 0, 30, 0, 159, 0, 162, 0, 151, 0, 150, 0, 154, 0, 25, 0, 166, 0, 154, 0, 150, 0, 156, 0, 152, 0, 148, 0, 160, 0, 152, 0, 156, 0, 149, 0, 146, 0, 157, 0)],
-"material": SubResource("StandardMaterial3D_2ycdn"),
+"material": SubResource("StandardMaterial3D_s1lh3"),
 "name": "Material.001",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -832,21 +909,51 @@ _data = {
 "Walk": SubResource("Animation_p25ac")
 }
 
-[node name="Runner" type="CharacterBody3D" node_paths=PackedStringArray("player", "eyeA", "eye", "skeleton", "weakPoint", "agent", "health")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_skrfm"]
+radius = 2.0
+
+[node name="Runner" type="CharacterBody3D" node_paths=PackedStringArray("player", "eyeA", "eye", "collider", "skeleton", "weakPoint", "model", "gibs", "spikes", "pant", "blastRadius", "agent", "health")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_epr6f")
 player = NodePath("spider/AnimationPlayer")
 eyeA = NodePath("spider/Armature/GeneralSkeleton/BoneAttachment3D/eye/AnimationPlayer")
-explosionRadius = 2.0
+explosionRadius = 1.5
 eye = NodePath("spider/Armature/GeneralSkeleton/BoneAttachment3D/eye")
+collider = NodePath("CollisionShape3D")
 skeleton = NodePath("spider/Armature/GeneralSkeleton")
 weakPoint = NodePath("spider/Armature/GeneralSkeleton/EyeWEAKPOINT/StaticBody3D")
+model = NodePath("spider")
+gibs = NodePath("Gibs")
+spikes = NodePath("ExplosionBase")
+goreExplode = SubResource("Resource_pvm13")
+explode = SubResource("Resource_fg7xp")
+spikeExplode = SubResource("Resource_isceu")
+pant = NodePath("pant")
+blastRadius = NodePath("BlastRadius")
 gore = SubResource("Resource_uk0wh")
 footstep = SubResource("Resource_6p5qp")
 agent = NodePath("NavigationAgent3D")
 speed = 3.0
 health = NodePath("Health")
+
+[node name="Gibs" parent="." instance=ExtResource("5_p42kl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18653, 0)
+emitting = false
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_6ky25")
+draw_pass_1 = SubResource("SphereMesh_qmduq")
+
+[node name="ExplosionBase" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39048, 0.121934)
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_u43mg")
+draw_pass_1 = SubResource("CylinderMesh_nxxud")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -1162,8 +1269,8 @@ bone_idx = 2
 transform = Transform3D(0.974368, 0.216337, 0.0616805, 0.0485745, -0.470048, 0.881303, 0.219651, -0.855718, -0.468508, 2.89641e-07, 0.0962808, 0.357825)
 
 [node name="Icosphere" type="MeshInstance3D" parent="spider/Armature/GeneralSkeleton/BoneAttachment3D/eye"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("ArrayMesh_2nrh1")
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0, 0, 0)
+mesh = SubResource("ArrayMesh_3u0p2")
 skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="spider/Armature/GeneralSkeleton/BoneAttachment3D/eye"]
@@ -1183,12 +1290,25 @@ speed_scale = 5.0
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 navigation_layers = 2
 avoidance_enabled = true
+radius = 0.01
 avoidance_layers = 2
 avoidance_mask = 2
 
 [node name="Health" type="Node3D" parent="."]
 script = ExtResource("6_3fol7")
 maxHealth = 3.0
+
+[node name="pant" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("15_35wli")
+unit_size = 1.5
+
+[node name="BlastRadius" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlastRadius"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_skrfm")
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="VelocityComputed"]
 [connection signal="OnDie" from="Health" to="." method="Die"]

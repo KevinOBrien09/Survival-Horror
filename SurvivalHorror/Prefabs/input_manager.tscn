@@ -20,4 +20,4 @@ script = ExtResource("3_4f8yx")
 script = ExtResource("4_jj4xx")
 flatAudioPrefab = ExtResource("5_apfhk")
 worldAudioPrefab = ExtResource("6_sfo46")
-howManyInstances = 50.0
+howManyInstances = 200.0

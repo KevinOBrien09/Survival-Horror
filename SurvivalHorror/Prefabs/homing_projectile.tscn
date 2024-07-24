@@ -1,16 +1,43 @@
-[gd_scene load_steps=11 format=3 uid="uid://cmjhe5mxseg4i"]
+[gd_scene load_steps=22 format=3 uid="uid://cmjhe5mxseg4i"]
 
 [ext_resource type="Script" path="res://Scripts/HomingProjectile.cs" id="1_h7874"]
 [ext_resource type="Material" uid="uid://cyd1mmaeppbiw" path="res://Art/Models/Zombie/ZombieGem.tres" id="1_souyo"]
-[ext_resource type="AudioStream" uid="uid://13t5usap56ve" path="res://Art/Audio/SFX/GemBreak2.mp3" id="2_mjwvx"]
+[ext_resource type="AudioStream" uid="uid://cmjs4l65qfnw0" path="res://Art/Audio/SFX/zapsplat_horror_acid_burn_015_14883.mp3" id="2_kn1pe"]
 [ext_resource type="Script" path="res://Scripts/SoundData.cs" id="3_17ccm"]
+[ext_resource type="Texture2D" uid="uid://ddx10v6gfxfmu" path="res://Art/Models/Zombie/pink.png" id="4_uug02"]
 
-[sub_resource type="Resource" id="Resource_k8w8b"]
+[sub_resource type="Resource" id="Resource_og38d"]
 script = ExtResource("3_17ccm")
 isWorldSource = false
-file = ExtResource("2_mjwvx")
+file = ExtResource("2_kn1pe")
 pitchRange = Vector2(0.9, 1.1)
 volume = 1.0
+
+[sub_resource type="Curve" id="Curve_hr4m7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24507, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_f2obg"]
+curve = SubResource("Curve_hr4m7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ldpr3"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 2.5
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_f2obg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4el6b"]
+albedo_texture = ExtResource("4_uug02")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lve4j"]
+material = SubResource("StandardMaterial3D_4el6b")
+top_radius = 0.0
+bottom_radius = 0.05
+height = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihskm"]
 resource_name = "Material.002"
@@ -49,25 +76,74 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_w4pwv")
 
+[sub_resource type="Curve" id="Curve_6t2ws"]
+_data = [Vector2(0.0084507, 0.0510428), 0.0, 0.0, 0, 0, Vector2(0.371831, 0.172338), 0.0, 0.0, 0, 0, Vector2(1, 0.00823271), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ubcff"]
+curve = SubResource("Curve_6t2ws")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xbfdt"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ubcff")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rpacs"]
+shading_mode = 0
+albedo_texture = ExtResource("4_uug02")
+
+[sub_resource type="SphereMesh" id="SphereMesh_jttky"]
+material = SubResource("StandardMaterial3D_rpacs")
+radial_segments = 4
+rings = 1
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_7i71y"]
-radius = 0.25
+radius = 1.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_rl405"]
-radius = 0.25
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8xcod"]
+radius = 0.418
+height = 1.955
 
-[node name="Homing_Projectile" type="StaticBody3D" node_paths=PackedStringArray("agent", "mesh")]
+[node name="Homing_Projectile" type="CharacterBody3D" node_paths=PackedStringArray("agent", "explode", "gemBreak", "blastRadius", "model")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_h7874")
 agent = NodePath("NavigationAgent3D")
-mesh = NodePath("Icosphere_010")
-shatter = SubResource("Resource_k8w8b")
+explode = NodePath("ExplosionBase")
+gemBreak = NodePath("GemBreak")
+blastRadius = NodePath("Area3D")
+model = NodePath("Icosphere_010")
+explodeSFX = SubResource("Resource_og38d")
+
+[node name="ExplosionBase" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 15
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_ldpr3")
+draw_pass_1 = SubResource("CylinderMesh_lve4j")
 
 [node name="Icosphere_010" type="MeshInstance3D" parent="."]
-transform = Transform3D(18, 0, 0, 0, -7.86805e-07, 18, 0, -18, -7.86805e-07, 0, 0, 0)
+transform = Transform3D(18, 0, 0, 0, -7.86805e-07, 18, 0, -18, -7.86805e-07, 0, 0.61858, -2.7039e-08)
 material_override = ExtResource("1_souyo")
 mesh = SubResource("ArrayMesh_rrbeu")
 skeleton = NodePath("")
+
+[node name="GemBreak" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, -3.84171e-09, 0, 4.07454e-10, 1, -2.23517e-08, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 15
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xbfdt")
+draw_pass_1 = SubResource("SphereMesh_jttky")
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -75,9 +151,13 @@ skeleton = NodePath("")
 shape = SubResource("SphereShape3D_7i71y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_rl405")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0376165, 0)
+shape = SubResource("CapsuleShape3D_8xcod")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 navigation_layers = 2
-avoidance_layers = 0
-avoidance_mask = 0
+avoidance_enabled = true
+avoidance_layers = 4
+avoidance_mask = 4
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="VelocityComputed"]

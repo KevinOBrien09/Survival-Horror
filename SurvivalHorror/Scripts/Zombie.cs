@@ -168,7 +168,10 @@ public partial class Zombie : Enemy
             if(p != null)
             {
                 AudioManager.inst.Play(smackedPlayer,AudioType.WORLD,GlobalPosition);
+              //  Player.inst.EnterPainState();
                 p.Hit(attackDamage);
+                Player.inst.Invul();
+         
             }
         }
     }
@@ -227,11 +230,18 @@ public partial class Zombie : Enemy
        var ps = weakPoint.GetParent().GetChild(1) as GpuParticles3D;
        ps.Emitting = true;
        
+       
+        Hitmarker.inst.HitTween(true);
+        EnterPainState();
+      
+    }
+
+    public override void EnterPainState(){
         inHit = true;
         tree.Active = false;
         health.Damage(4);
         AudioManager.inst.Play(gore,AudioType.WORLD,GlobalPosition);
-        Hitmarker.inst.HitTween(true);
+      
         if(!dead){
             foreach (var item in dict)
             {       
@@ -250,7 +260,6 @@ public partial class Zombie : Enemy
             canMove = false;
             ChangeState(State.HIT);
         }
-      
     }
 
     public override void VelocityComputed(Vector3 safeVel)

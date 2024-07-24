@@ -164,7 +164,7 @@ public partial class RedHead : Enemy
             eyes[0].Activate();
             Tween tw1 = CreateTween();
             tw1.TweenProperty(drone,"volume_db",-80,.5f);
-            Projectile proj =   projectilePrefab.Instantiate() as HomingProjectile;
+           HomingProjectile proj =   projectilePrefab.Instantiate() as HomingProjectile;
             GetTree().Root.AddChild(proj);
             proj.GlobalPosition = projSpawn.GlobalPosition;
             proj.GlobalRotation = projSpawn.GlobalRotation;

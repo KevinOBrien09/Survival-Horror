@@ -11,12 +11,22 @@ public partial class Runner : Enemy
     [Export] AnimationPlayer player,eyeA;
     [Export] float explosionRadius;
     [Export] Node3D eye;
+    [Export] CollisionShape3D collider;
     [Export] Skeleton3D skeleton;
     [Export] WeakPoint weakPoint;
+    [Export] Node3D model;
+    [Export] GpuParticles3D gibs,spikes;
+    [Export] SoundData goreExplode,explode,spikeExplode;
+    [Export] AudioStreamPlayer3D pant;
+    [Export] Area3D blastRadius;
     List<Hitbox> hitboxes = new List<Hitbox>();
     float dist;
+    bool exploded;
     public override void _Ready()
     {
+        if(!AudioManager.inst.mute){
+            pant.Play();
+        }
         DelayProcessStart();
         player.Play("Walk/Walk");
         eyeA.Play("look");
@@ -38,8 +48,15 @@ public partial class Runner : Enemy
 
     public override void WeakPointHit(float dmg, WeakPoint weakPoint)
     {
-        GD.Print("HIT EYE");
-        base.WeakPointHit(dmg, weakPoint);
+        Hitmarker.inst.HitTween(true);
+        CleanExplode();
+    }
+
+    public override void Die(){
+      
+        dead = true;
+        SpikeExplode();
+   
     }
 
     public override void _PhysicsProcess(double delta)
@@ -48,7 +65,66 @@ public partial class Runner : Enemy
         MoveToTarget(Player.inst.GlobalTransform.Origin);
        eye.GlobalRotation = SmoothLookAt.inst.LerpedGlobalRotation(eye,Player.inst);
         if(dist <= explosionRadius){
-            GD.Print("BOOM");
+          SpikeExplode();
         }
+    }
+
+    void CleanExplode(){
+        dead = true;
+        exploded = true;
+        AudioManager.inst.Play(goreExplode,AudioType.WORLD,GlobalPosition);
+        pant.QueueFree();
+        foreach (var item in hitboxes)
+        {
+            item.collisionShape3D.Disabled = true;
+        }
+        weakPoint.collisionShape3D.Disabled = true;
+        model.Visible = false;
+        SetPhysicsProcess(false);
+        agent.Velocity = Vector3.Zero;
+        Velocity = Vector3.Zero;
+        gibs.Emitting = true;
+        collider.Disabled = true;
+        Coro.Run(q(),this );
+        IEnumerator q(){
+            yield return new WaitForSeconds(1);
+            QueueFree();
+        }
+    }
+
+    public override void EnterPainState()
+    {
+        SpikeExplode();
+    }
+
+    public void SpikeExplode()
+    {
+        if(exploded){
+            return;
+        }
+        exploded = true;
+        AudioManager.inst.Play(spikeExplode,AudioType.WORLD,GlobalPosition);
+        spikes.Emitting = true;
+        foreach (var item in blastRadius.GetOverlappingBodies())
+        {
+            Player p = item as Player;
+            Enemy e = item as Enemy;
+            if(p != null){
+                Player.inst.EnterPainState();
+                Player.inst.Hit(1);
+                Player.inst.Invul();
+            }
+
+            if(e != null){
+                GD.Print("HIT Z");
+                if(e != this){
+                    e.EnterPainState();
+                }
+               
+            }
+        }  
+
+        CleanExplode();
+            
     }
 }

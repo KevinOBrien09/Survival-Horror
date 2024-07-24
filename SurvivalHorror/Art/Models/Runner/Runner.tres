@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dmt2gybg5j7wv"]
+
+[ext_resource type="Texture2D" uid="uid://csqmopjgfw7yy" path="res://Art/Models/Runner/Horror_Mutant_Albedo(1).png" id="1_ewm3c"]
+[ext_resource type="Material" uid="uid://7s5v8q8vpasl" path="res://Shaders/OutlineNextPass.tres" id="2_aqy8c"]
+
+[resource]
+next_pass = ExtResource("2_aqy8c")
+shading_mode = 0
+albedo_texture = ExtResource("1_ewm3c")
+texture_filter = 0

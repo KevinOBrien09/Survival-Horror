@@ -31,8 +31,15 @@ public partial class Enemy : CharacterBody3D
         
     }
 
+    public virtual void EnterPainState(){
+
+    }
+
     public void Footstep(){
-        AudioManager.inst.Play(footstep,AudioType.WORLD,GlobalPosition);
+        if(!dead){
+    AudioManager.inst.Play(footstep,AudioType.WORLD,GlobalPosition);
+        }
+    
     }
 
     public virtual void Die(){

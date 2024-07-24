@@ -10,6 +10,7 @@ public partial class Projectile : Node3D
     [Export]public float lifeSpan = 5;
     [Export] public Node3D mesh;
     [Export] public SoundData shatter;
+    [Export] GpuParticles3D breakP;
     public virtual void Fire(Node3D target = null){
     
         rb.LinearVelocity = -GlobalTransform.Basis.Z * speed;
@@ -30,6 +31,7 @@ public partial class Projectile : Node3D
 
     public virtual void Shatter(){
         AudioManager.inst.Play(shatter,AudioType.WORLD,GlobalPosition);
+ 
         QueueFree();
     }
 }

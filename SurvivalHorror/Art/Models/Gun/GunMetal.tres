@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://fh7xnhqb7wea"]
+
+[ext_resource type="Texture2D" uid="uid://coh4xfl36swyx" path="res://Art/Models/Gun/Gun_Metal046A_1K-JPG_Color.jpg" id="1_6orda"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykoaq"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.001
+
+[resource]
+next_pass = SubResource("StandardMaterial3D_ykoaq")
+diffuse_mode = 3
+specular_mode = 2
+albedo_texture = ExtResource("1_6orda")
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 13.8
+rim_tint = 1.0
+anisotropy = 1.0
+texture_filter = 0
+disable_receive_shadows = true

@@ -44,6 +44,7 @@ public partial class Weapon : Node3D
         var wp = ray.GetCollider() as WeakPoint;
         var hb = ray.GetCollider() as Hitbox;
         var p = ray.GetCollider() as Projectile;
+        var hp = ray.GetCollider() as HomingProjectile;
         if(wp != null)
         { wp.Hit(damage); }
         else if(hb != null)
@@ -51,6 +52,8 @@ public partial class Weapon : Node3D
         else if(e != null)
         { e.Hit(damage); }
         else if(p != null)
+        { p.Shatter();}
+        else if(hp != null)
         { p.Shatter();}
     }
 
