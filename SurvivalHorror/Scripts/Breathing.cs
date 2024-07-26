@@ -4,36 +4,29 @@ using System;
 public partial class Breathing : Node3D
 {
     [Export] Vector2 range;
-    [Export] float speed;
-    bool inTween;
-    Tween t;
-    bool up;
+    [Export] float swayScale,speed;
+    float swayTime;
     public override void _Ready()
     {
-        SetProcess(false);
+        
     }
     public override void _Process(double delta)
     {
-        if(!inTween){
-            Move();
+        var target = Curve(swayTime)/swayScale;
+        swayTime += (float)delta;
+        if(swayTime > 999
+        ){
+            swayTime = 0;
         }
+        RotationDegrees = RotationDegrees.Lerp(target,speed);
     }
 
-    public void Move(){
-        t = CreateTween().SetEase(Tween.EaseType.Out);
-        Vector3 target = new Vector3();
-        if(up )
-        { target = new Vector3(range.Y,0,0); }
-        else
-        { target = new Vector3(range.X,0,0); }
-        inTween = true;
-        t.TweenProperty(this, "rotation_degrees",target,speed);
-        t.Finished +=()=>{inTween = false;
-        up = !up;};
+    Vector3 Curve(float t){
+
+        return new Vector3(range.X * Mathf.Sin(range.X*t*Mathf.Pi),range.Y * Mathf.Sin(range.Y*t*Mathf.Pi),0);
     }
 
     public void Kill(){
-        t.Kill();
-        inTween  =false;
+      Position = Vector3.Zero;
     }
 }
