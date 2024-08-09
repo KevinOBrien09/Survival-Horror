@@ -23,7 +23,7 @@ public partial class Breathing : Node3D
 
     Vector3 Curve(float t){
 
-        return new Vector3(range.X * Mathf.Sin(range.X*t*Mathf.Pi),range.Y * Mathf.Sin(range.Y*t*Mathf.Pi),0);
+        return new Vector3(range.Y * Mathf.Sin(range.Y*t*Mathf.Pi),range.X * Mathf.Sin(range.X*t*Mathf.Pi),0);
     }
 
     public void Kill(){

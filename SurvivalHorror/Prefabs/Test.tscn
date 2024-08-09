@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://dhfc6f7c5ra7f"]
+[gd_scene load_steps=23 format=3 uid="uid://dhfc6f7c5ra7f"]
 
 [ext_resource type="PackedScene" uid="uid://dhf4knnk1dsth" path="res://Prefabs/player.tscn" id="1_nnj2n"]
-[ext_resource type="PackedScene" uid="uid://clmffnjle5jp4" path="res://Prefabs/runner.tscn" id="2_3uei0"]
 [ext_resource type="Material" uid="uid://jbobf7jh8l6s" path="res://Shaders/OutlineMat.tres" id="2_d3y5l"]
-[ext_resource type="PackedScene" uid="uid://lgbw0dm7xsmu" path="res://Prefabs/Zombie.tscn" id="3_22lxg"]
+[ext_resource type="PackedScene" uid="uid://dv7suluibur1l" path="res://Prefabs/pinkface.tscn" id="2_r4ixb"]
 [ext_resource type="Script" path="res://Scripts/Clickable.cs" id="3_dn5bn"]
+[ext_resource type="PackedScene" uid="uid://clmffnjle5jp4" path="res://Prefabs/runner.tscn" id="5_50d1y"]
+[ext_resource type="PackedScene" uid="uid://cs8ggsr6rbdpn" path="res://Art/Models/Wolf_Animated/character_body_3d.tscn" id="7_72m80"]
 [ext_resource type="Texture2D" uid="uid://bmoilfhpxqlgn" path="res://Art/Textures/Tile/Tile 10 - 512x512.png" id="7_snkhf"]
 [ext_resource type="Texture2D" uid="uid://bpukbsif8qq0n" path="res://Art/Textures/Bricks/Brick 24 - 512x512.png" id="8_pw6a4"]
 [ext_resource type="Shader" uid="uid://c5pte6ow6pwrk" path="res://Shaders/Dissolve.tres" id="9_ot6gr"]
@@ -71,23 +72,8 @@ texture_filter = 0
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Runner" parent="." instance=ExtResource("2_3uei0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.278, 0.5, 0)
-
 [node name="Player" parent="." instance=ExtResource("1_nnj2n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.70607, 0.49231, -23.9306)
-
-[node name="Zombie3" parent="." instance=ExtResource("3_22lxg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.07168, 0.5, 0)
-
-[node name="Zombie2" parent="." instance=ExtResource("3_22lxg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.09447, 0.5, 2.93226)
-
-[node name="Runner2" parent="." instance=ExtResource("2_3uei0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.703, 0.5, 0)
-
-[node name="Zombie" parent="." instance=ExtResource("3_22lxg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." node_paths=PackedStringArray("outLine")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00628, 1.52797, 1.30958)
@@ -107,8 +93,17 @@ shape = SubResource("BoxShape3D_6umyf")
 visible = false
 mesh = SubResource("ArrayMesh_idt61")
 
+[node name="Runner" parent="." instance=ExtResource("5_50d1y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.915, 0.5, 0)
+
+[node name="pink face" parent="." instance=ExtResource("2_r4ixb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.52832, -0.849045, 0, 0.849045, 0.52832, 0, 1.35997, 0)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("7_72m80")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_68xdh")
@@ -172,6 +167,11 @@ size = Vector3(3.86914, 5.7168, 4.04773)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.56548, -1.24357, 4.68196)
 use_collision = true
 size = Vector3(3.86914, 6.23145, 4.23883)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46802, 2.62423)
+light_color = Color(0.531978, 0, 0.0471262, 1)
+light_energy = 7.775
 
 [connection signal="input_event" from="MeshInstance3D/StaticBody3D" to="MeshInstance3D" method="MouseClick"]
 [connection signal="mouse_entered" from="MeshInstance3D/StaticBody3D" to="MeshInstance3D" method="MouseEnter"]

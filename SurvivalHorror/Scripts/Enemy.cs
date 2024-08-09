@@ -86,7 +86,10 @@ public partial class Enemy : CharacterBody3D
     }
 
     public virtual void YClampLookAt(Vector3 target){
-        LookAt(target);
+        if(target.IsEqualApprox(Vector3.Zero)){
+            return;
+        }
+        LookAt(target,new Vector3(0,-1,0));
         Rotation = new Vector3(0,Rotation.Y,0);
     }
 

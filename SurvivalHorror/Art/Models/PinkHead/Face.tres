@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://coxn4tkk3sool"]
+
+[ext_resource type="Texture2D" uid="uid://wj6gqueac5ub" path="res://Art/Models/PinkHead/Image_0.png" id="1_lyw54"]
+[ext_resource type="Material" uid="uid://7s5v8q8vpasl" path="res://Shaders/OutlineNextPass.tres" id="2_jjqmw"]
+
+[resource]
+next_pass = ExtResource("2_jjqmw")
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_lyw54")
+texture_filter = 0

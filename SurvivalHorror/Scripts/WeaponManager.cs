@@ -43,6 +43,8 @@ public partial class WeaponManager : Node3D
             yield return new WaitOneFrame();
             CameraShake.inst.SwapCamera(thirdPerson.GetParentNode3D());
         }
+
+        GD.Print(  Base64.Base64Encode("QWERTY")) ;
     }
 
     public void SetWeapon(Weapon w){

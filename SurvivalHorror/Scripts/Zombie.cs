@@ -162,18 +162,23 @@ public partial class Zombie : Enemy
 
     public void Attack()
     {
-        if(attackRay.IsColliding())
+        if(currentState == State.ATTACK1 || currentState == State.ATTACK2 )
         {
-            var p = attackRay.GetCollider() as Player;
-            if(p != null)
+            if(attackRay.IsColliding())
             {
-                AudioManager.inst.Play(smackedPlayer,AudioType.WORLD,GlobalPosition);
-              //  Player.inst.EnterPainState();
-                p.Hit(attackDamage);
-                Player.inst.Invul();
-         
+                var p = attackRay.GetCollider() as Player;
+                if(p != null)
+                {
+                    AudioManager.inst.Play(smackedPlayer,AudioType.WORLD,GlobalPosition);
+                //  Player.inst.EnterPainState();
+                    p.Hit(attackDamage);
+                    Player.inst.Invul();
+            
+                }
             }
+
         }
+        
     }
     
     void ChangeState(State newState){

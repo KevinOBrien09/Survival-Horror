@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/Health.cs" id="6_3fol7"]
 [ext_resource type="Script" path="res://Scripts/WeakPoint.cs" id="6_cgkvq"]
 [ext_resource type="Texture2D" uid="uid://ddx10v6gfxfmu" path="res://Art/Models/Zombie/pink.png" id="6_k8uqn"]
-[ext_resource type="AudioStream" uid="uid://biiy8cu0e1uby" path="res://Art/Audio/SFX/panting.mp3" id="15_35wli"]
+[ext_resource type="AudioStream" uid="uid://bqo70vwxaqa3v" path="res://Art/Audio/SFX/zombiebreathe.mp3" id="16_nqj5n"]
 
 [sub_resource type="Resource" id="Resource_pvm13"]
 script = ExtResource("4_4xh6j")
@@ -934,7 +934,7 @@ blastRadius = NodePath("BlastRadius")
 gore = SubResource("Resource_uk0wh")
 footstep = SubResource("Resource_6p5qp")
 agent = NodePath("NavigationAgent3D")
-speed = 3.0
+speed = 5.0
 health = NodePath("Health")
 
 [node name="Gibs" parent="." instance=ExtResource("5_p42kl")]
@@ -1299,8 +1299,9 @@ script = ExtResource("6_3fol7")
 maxHealth = 3.0
 
 [node name="pant" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("15_35wli")
+stream = ExtResource("16_nqj5n")
 unit_size = 1.5
+pitch_scale = 2.0
 
 [node name="BlastRadius" type="Area3D" parent="."]
 collision_layer = 0
