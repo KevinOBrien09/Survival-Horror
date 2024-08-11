@@ -22,4 +22,6 @@ public partial class WeakPoint : StaticBody3D
         Visible = false;
         collisionShape3D.Disabled = true;
     }
+
+   
 }

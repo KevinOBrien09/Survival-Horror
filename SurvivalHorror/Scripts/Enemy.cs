@@ -11,9 +11,20 @@ public partial class Enemy : CharacterBody3D
     [Export] public NavigationAgent3D agent;
     [Export] public float speed;
     [Export] public Health health;
+    [Export] Node3D lookAt;
     public bool dead;
     public override void _Ready(){
         DelayProcessStart();
+    }
+
+    public virtual List<WeakPoint> GetTargets(){
+        return null;
+    }
+    public Node3D GetInterfaceNode(){
+        return this;
+    }
+    public Node3D LookAtNode(){
+        return lookAt;
     }
 
 

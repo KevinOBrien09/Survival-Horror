@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://b60xk80gvfeh7"]
+
+[ext_resource type="Script" path="res://Scripts/BattleManager.cs" id="1_kvxoc"]
+[ext_resource type="PackedScene" uid="uid://yakexqchmydj" path="res://Prefabs/combat_player.tscn" id="1_v34rr"]
+[ext_resource type="PackedScene" uid="uid://lgbw0dm7xsmu" path="res://Prefabs/Zombie.tscn" id="2_5qmpf"]
+[ext_resource type="Script" path="res://Scripts/EnemySpawn.cs" id="4_yb5ls"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gex4n"]
+
+[sub_resource type="Sky" id="Sky_7ib0n"]
+sky_material = SubResource("ProceduralSkyMaterial_gex4n")
+
+[sub_resource type="Environment" id="Environment_0f4me"]
+background_mode = 2
+sky = SubResource("Sky_7ib0n")
+
+[node name="CombatTest" type="Node3D"]
+
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("spawns")]
+script = ExtResource("1_kvxoc")
+enemyTest = ExtResource("2_5qmpf")
+spawns = [NodePath("../1"), NodePath("../2"), NodePath("../3"), NodePath("../4")]
+
+[node name="CombatPlayer" parent="." instance=ExtResource("1_v34rr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 4)
+
+[node name="Bullet parent" parent="CombatPlayer/Breathing/LookAt/Camera3D/Gun/Rev_Anim_Rig/Skeleton3D" index="0"]
+transform = Transform3D(1, 1.15446e-06, -2.29715e-07, -1.28136e-06, 1, 9.61125e-07, 2.01743e-07, -1.04308e-06, 1, -0.00476404, 0.0118294, -0.00155906)
+
+[node name="Bullet 1" parent="CombatPlayer/Breathing/LookAt/Camera3D/Gun/Rev_Anim_Rig/Skeleton3D" index="1"]
+transform = Transform3D(1, 1.15446e-06, -2.29715e-07, -1.28136e-06, 1, 9.61125e-07, 2.01743e-07, -1.04308e-06, 1, -0.00476404, 0.0179695, 0.00907604)
+
+[node name="Bullet 2" parent="CombatPlayer/Breathing/LookAt/Camera3D/Gun/Rev_Anim_Rig/Skeleton3D" index="2"]
+transform = Transform3D(1, 1.15446e-06, -2.29715e-07, -1.28136e-06, 1, 9.61125e-07, 2.01743e-07, -1.04308e-06, 1, -0.00476405, 0.00568912, 0.00907605)
+
+[node name="Bullet 3" parent="CombatPlayer/Breathing/LookAt/Camera3D/Gun/Rev_Anim_Rig/Skeleton3D" index="3"]
+transform = Transform3D(1, 1.15446e-06, -2.29715e-07, -1.28136e-06, 1, 9.61125e-07, 2.01743e-07, -1.04308e-06, 1, -0.00476406, -0.00045099, -0.00155904)
+
+[node name="Bullet 4" parent="CombatPlayer/Breathing/LookAt/Camera3D/Gun/Rev_Anim_Rig/Skeleton3D" index="4"]
+transform = Transform3D(1, 1.15446e-06, -2.29715e-07, -1.28136e-06, 1, 9.61125e-07, 2.01743e-07, -1.04308e-06, 1, -0.00476405, 0.00568911, -0.0121941)
+
+[node name="Bullet 5" parent="CombatPlayer/Breathing/LookAt/Camera3D/Gun/Rev_Anim_Rig/Skeleton3D" index="5"]
+transform = Transform3D(1, 1.15446e-06, -2.29715e-07, -1.28136e-06, 1, 9.61125e-07, 2.01743e-07, -1.04308e-06, 1, -0.00476404, 0.0179694, -0.0121942)
+
+[node name="Bullet 6" parent="CombatPlayer/Breathing/LookAt/Camera3D/Gun/Rev_Anim_Rig/Skeleton3D" index="6"]
+transform = Transform3D(1, 1.15446e-06, -2.29715e-07, -1.28136e-06, 1, 9.61125e-07, 2.01743e-07, -1.04308e-06, 1, -0.00476403, 0.0241097, -0.00155907)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0f4me")
+
+[node name="1" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.39878, 0, 0)
+script = ExtResource("4_yb5ls")
+
+[node name="2" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.601224, 0, 0)
+script = ExtResource("4_yb5ls")
+
+[node name="3" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.60122, 0, -1)
+script = ExtResource("4_yb5ls")
+
+[node name="4" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.39878, 0, -1)
+script = ExtResource("4_yb5ls")
+
+[editable path="CombatPlayer"]
+[editable path="CombatPlayer/UI/Control/ActionMenu/VBoxContainer/Option"]
+[editable path="CombatPlayer/UI/Control/ActionMenu/VBoxContainer/Option2"]
+[editable path="CombatPlayer/UI/Control/ActionMenu/VBoxContainer/Option3"]

@@ -19,7 +19,8 @@ public partial class Zombie : Enemy
     [Export] float attackDamage;
     [Export] SoundData leftSwipeSFX,rightSwipeSFX,smackedPlayer,hitGroan,randomNoise1,randomNoise2,thud,die;
     Dictionary<State,float> dict = new Dictionary<State, float>();
-    List<WeakPoint> weakPoints = new List<WeakPoint>();
+    
+ public   List<WeakPoint> weakPoints = new List<WeakPoint>();
     List<Hitbox> hitboxes = new List<Hitbox>();
     State currentState;
     bool canMove,moving,inHit,inAttack,inSound,leftSwip,randomWalkFrame;
@@ -56,18 +57,22 @@ public partial class Zombie : Enemy
         }
         leftSwip = MiscFunctions.FiftyFifty();
 
-        foreach (var item in weakPoints)
-        { item.Deactivate(); }
-        List<int> l = new List<int>();
-        for (int i = 0; i < weakPoints.Count; i++)
-        { l.Add(i); }
-        Random rnd = new Random();
-        l  =  l.OrderBy((item) => rnd.Next()).ToList();
+        // foreach (var item in weakPoints)
+        // { item.Deactivate(); }
+        // List<int> l = new List<int>();
+        // for (int i = 0; i < weakPoints.Count; i++)
+        // { l.Add(i); }
+        // Random rnd = new Random();
+        // l  =  l.OrderBy((item) => rnd.Next()).ToList();
 
-        for (int i = 0; i < 3; i++)
-        {
-            weakPoints[l[i]].Activate();
-        }
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     weakPoints[l[i]].Activate();
+        // }
+    }
+
+    public override List<WeakPoint> GetTargets(){
+        return weakPoints;
     }
 
     public void PlaySound(SoundData sd)
@@ -84,102 +89,10 @@ public partial class Zombie : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
-        dist = GlobalPosition.DistanceTo(Player.inst.GlobalPosition);
-        inSound = soundTimeStamp >= Time.GetTicksMsec();
-   
-        if(dead){
-            return;
-        }
+        //Move();
         HandleAnims();
-       
-        if(canMove)
-        {
-            inAttack = dist <= attackDist && !inHit && canMove;
-            moving = !inAttack && !inHit && canMove;
-            if(moving)
-            {
-                MoveToTarget(Player.inst.GlobalTransform.Origin);
-                if(!randomWalkFrame){
-                    RandomNumberGenerator rng = new RandomNumberGenerator();
-                    var q = rng.RandfRange(0,1f);
-                    tree.Set("parameters/walkSeek/seek_request",q);
-                    randomWalkFrame = true;
-                }
-                ChangeState(State.WALK);
-            }
-            if(inAttack)
-            {
-              
-                if(currentState != State.ATTACK1 && currentState != State.ATTACK2)
-                {
-                    canMove = false;
-                    var t = 1.6333f * 1000;
-                    returnToIdle = t + Time.GetTicksMsec();
-                    if(leftSwip)
-                    { 
-                        ChangeState(State.ATTACK1); 
-                        tree.Set("parameters/leftSeek/seek_request",0);
-                        PlaySound(leftSwipeSFX);
-                    }
-                    else
-                    {
-                        ChangeState(State.ATTACK2);
-                        tree.Set("parameters/rightSeek/seek_request",0);
-                        PlaySound(rightSwipeSFX);
-                    }
-                }
-            }
-        }
-        else
-        {
-            Velocity = Vector3.Zero;
-            agent.Velocity = Vector3.Zero;
-            
-            if(inHit)
-            { 
-                if(returnToIdle <= Time.GetTicksMsec() && !dead)
-                {
-                    canMove = true;
-                    ChangeState(State.IDLE);
-                    tree.Active = true;
-                    inHit = false;
-                }
-            }
-            else if(inAttack)
-            {
-                YClampLookAt(Player.inst.GlobalPosition);
-                if(returnToIdle <= Time.GetTicksMsec() && !dead)
-                {
-                    leftSwip = !leftSwip;
-                    ChangeState(State.IDLE);
-                    tree.Active = true;
-                    canMove = true;
-                }
-
-            }
-        }
     }
 
-    public void Attack()
-    {
-        if(currentState == State.ATTACK1 || currentState == State.ATTACK2 )
-        {
-            if(attackRay.IsColliding())
-            {
-                var p = attackRay.GetCollider() as Player;
-                if(p != null)
-                {
-                    AudioManager.inst.Play(smackedPlayer,AudioType.WORLD,GlobalPosition);
-                //  Player.inst.EnterPainState();
-                    p.Hit(attackDamage);
-                    Player.inst.Invul();
-            
-                }
-            }
-
-        }
-        
-    }
     
     void ChangeState(State newState){
         
